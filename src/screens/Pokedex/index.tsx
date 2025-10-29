@@ -1,13 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, FlatList, ListRenderItem } from 'react-native';
+import { View, Text, FlatList, ListRenderItem, ActivityIndicator } from 'react-native';
 import { styles } from './Pokedex.styles';
-import { Pokemon } from '../../types/pokemon';
 import { PokemonCard } from '../../components/PokemonCard';
-
-const pokemonList: Pokemon[] = require('../../../assets/kanto.json');
+import { usePokemonList } from '../../services/api/hooks/usePokemonList';
 
 export default function Pokedex() {
-  const renderItem: ListRenderItem<Pokemon> = ({ item }) => (
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = usePokemonList();
+
+  const pokemon = data?.pages.flatMap((page) => page.results) ?? [];
+
+  if (isLoading) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  const renderItem: ListRenderItem<{ name: string; url: string }> = ({ item }) => (
     <PokemonCard name={item.name} />
   );
 
@@ -15,11 +31,16 @@ export default function Pokedex() {
     <View style={styles.container}>
       <Text style={styles.title}>Pokédex</Text>
       <FlatList
-        data={pokemonList}
+        data={pokemon}
+        keyExtractor={(item) => item.name}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.listContent}
         style={styles.list}
+        onEndReached={() => hasNextPage && fetchNextPage()}
+        onEndReachedThreshold={0.4}
+        ListFooterComponent={
+          isFetchingNextPage ? <ActivityIndicator style={{ marginVertical: 16 }} /> : null
+        }
       />
       <StatusBar style="auto" />
     </View>

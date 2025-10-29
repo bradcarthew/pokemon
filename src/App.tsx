@@ -1,4 +1,4 @@
-import Pokedex from './src/components/Pokedex';
+import Pokedex from './screens/Pokedex';
 
 export default function App() {
   return (

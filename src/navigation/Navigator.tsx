@@ -1,8 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
 import Pokedex from "../screens/Pokedex";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import PokemonDetails from "../screens/PokemonDetails";
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Pokedex: undefined;
+  PokemonDetails: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Navigator() {
   return (
@@ -12,6 +18,11 @@ export default function Navigator() {
           name="Pokedex"
           component={Pokedex}
           options={{ title: 'Pokédex' }}
+        />
+        <Stack.Screen 
+          name="PokemonDetails" 
+          component={PokemonDetails} 
+          options={{ title: 'Pokémon Details'}}  
         />
       </Stack.Navigator>
     </NavigationContainer>

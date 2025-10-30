@@ -18,7 +18,7 @@ export default function Pokedex() {
   const renderItem: ListRenderItem<{ name: string; url: string }> = ({ item }) => (
     <PokemonCard 
       name={item.name} 
-      onPress={() => navigation.navigate('PokemonDetails')}
+      onPress={() => navigation.navigate('PokemonDetails', { name: item.name, url: item.url })}
     />
   );
   

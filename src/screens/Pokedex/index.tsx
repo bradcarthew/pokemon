@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, FlatList, ListRenderItem, ActivityIndicator } from 'react-native';
+import { View, FlatList, ListRenderItem, ActivityIndicator } from 'react-native';
 import { styles } from './Pokedex.styles';
 import { PokemonCard } from '../../components/PokemonCard';
 import { usePokemonList } from '../../services/api/hooks/usePokemonList';
@@ -29,7 +29,6 @@ export default function Pokedex() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Pokédex</Text>
       <FlatList
         data={pokemon}
         keyExtractor={(item) => item.name}

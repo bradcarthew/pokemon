@@ -1,12 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Pokedex from './screens/Pokedex';
+import Navigator  from './navigation/Navigator';
 
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Pokedex />
+      <Navigator />
     </QueryClientProvider>
   );
 }

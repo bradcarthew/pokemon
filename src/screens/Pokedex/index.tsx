@@ -3,8 +3,25 @@ import { View, FlatList, ListRenderItem, ActivityIndicator } from 'react-native'
 import { styles } from './Pokedex.styles';
 import { PokemonCard } from '../../components/PokemonCard';
 import { usePokemonList } from '../../services/api/hooks/usePokemonList';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/Navigator';
+
+type PokedexScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Pokedex'
+>;
 
 export default function Pokedex() {
+  const navigation = useNavigation<PokedexScreenNavigationProp>();
+
+  const renderItem: ListRenderItem<{ name: string; url: string }> = ({ item }) => (
+    <PokemonCard 
+      name={item.name} 
+      onPress={() => navigation.navigate('PokemonDetails')}
+    />
+  );
+  
   const {
     data,
     isLoading,
@@ -22,10 +39,6 @@ export default function Pokedex() {
       </View>
     );
   }
-
-  const renderItem: ListRenderItem<{ name: string; url: string }> = ({ item }) => (
-    <PokemonCard name={item.name} />
-  );
 
   return (
     <View style={styles.container}>

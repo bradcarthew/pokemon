@@ -1,14 +1,23 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, Pressable } from 'react-native';
 
 interface PokemonCardProps {
   name: string;
+  onPress?: () => void;
 }
 
-export const PokemonCard = ({ name }: PokemonCardProps) => (
-  <View style={styles.card}>
-    <Text style={styles.name}>{name}</Text>
-  </View>
-);
+export const PokemonCard = ({ name, onPress }: PokemonCardProps) => {
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.card,
+        pressed && { opacity: 0.7, transform: [{ scale: 0.98 }] },
+      ]}
+    >
+      <Text style={styles.name}>{name}</Text>
+    </Pressable>
+  );
+};
 
 const styles = StyleSheet.create({
   card: {

@@ -3,13 +3,6 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    textAlign: 'center',
-    marginBottom: 16,
-    letterSpacing: 1,
-  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

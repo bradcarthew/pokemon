@@ -6,6 +6,7 @@ import { usePokemonList } from '../../services/api/hooks/usePokemonList';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/Navigator';
+import { Pokemon } from '../../types/pokemon';
 
 type PokedexScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -15,7 +16,7 @@ type PokedexScreenNavigationProp = NativeStackNavigationProp<
 export default function Pokedex() {
   const navigation = useNavigation<PokedexScreenNavigationProp>();
 
-  const renderItem: ListRenderItem<{ name: string; url: string }> = ({ item }) => (
+  const renderItem: ListRenderItem<Pokemon> = ({ item }) => (
     <PokemonCard 
       name={item.name} 
       onPress={() => navigation.navigate('PokemonDetails', { name: item.name, url: item.url })}
@@ -34,7 +35,7 @@ export default function Pokedex() {
 
   if (isLoading) {
     return (
-      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+      <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" />
       </View>
     );
@@ -51,7 +52,7 @@ export default function Pokedex() {
         onEndReached={() => hasNextPage && fetchNextPage()}
         onEndReachedThreshold={0.4}
         ListFooterComponent={
-          isFetchingNextPage ? <ActivityIndicator style={{ marginVertical: 16 }} /> : null
+          isFetchingNextPage ? <ActivityIndicator style={styles.fetchingIndicator} /> : null
         }
       />
       <StatusBar style="auto" />

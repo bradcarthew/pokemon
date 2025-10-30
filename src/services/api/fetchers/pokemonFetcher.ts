@@ -1,13 +1,9 @@
 import { QueryFunctionContext } from '@tanstack/react-query';
+import { Pokemon } from '../../../types/pokemon';
 
 export interface PokemonApiResponse {
-  count: number;
   next: string | null;
-  previous: string | null;
-  results: {
-    name: string;
-    url: string;
-  }[];
+  results: Pokemon[];
 }
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;

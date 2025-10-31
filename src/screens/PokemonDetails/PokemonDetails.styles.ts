@@ -6,13 +6,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 20,
   },
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: "#fff",
-    padding: 20,
-    justifyContent: "center", 
-    alignItems: "center"
-  },
   stat: {
     fontSize: 18,
     marginBottom: 8,

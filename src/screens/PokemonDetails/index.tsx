@@ -1,21 +1,20 @@
-import { View, Text, Alert, ActivityIndicator, ScrollView } from "react-native";
+import { Text, Alert, ScrollView } from "react-native";
 import { styles } from "./PokemonDetails.styles";
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../../navigation/Navigator";
-import { usePokemonDetails } from "../../services/api/hooks/usePokemonDetails";
+import { RootStackParamList } from "@app/navigation/types";
+import { usePokemonDetails } from "@services/api/hooks/usePokemonDetails";
+import { LoadingIndicator } from "@/components/LoadingIndicator";
 
 type PokemonDetailsRouteProp = RouteProp<RootStackParamList, 'PokemonDetails'>;
 
 export default function PokemonDetails() {
-  const route = useRoute<PokemonDetailsRouteProp>();
-  const { url } = route.params;
+  const { params } = useRoute<PokemonDetailsRouteProp>();
+  const { url } = params;
   const { data, isLoading, error } = usePokemonDetails(url);
 
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" />
-      </View>
+      <LoadingIndicator />
     );
   }
 

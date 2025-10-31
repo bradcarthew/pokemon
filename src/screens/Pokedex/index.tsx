@@ -1,17 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, FlatList, ListRenderItem, ActivityIndicator } from 'react-native';
 import { styles } from './Pokedex.styles';
-import { PokemonCard } from '../../components/PokemonCard';
-import { usePokemonList } from '../../services/api/hooks/usePokemonList';
+import { PokemonCard } from '@components/PokemonCard';
+import { usePokemonList } from '@services/api/hooks/usePokemonList';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/Navigator';
 import { Pokemon } from '../../types/pokemon';
+import { RootStackParamList } from '@/app/navigation/types';
+import { LoadingIndicator } from '@/components/LoadingIndicator';
 
-type PokedexScreenNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'Pokedex'
->;
+type PokedexScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Pokedex'>;
 
 export default function Pokedex() {
   const navigation = useNavigation<PokedexScreenNavigationProp>();
@@ -35,9 +33,7 @@ export default function Pokedex() {
 
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" />
-      </View>
+      <LoadingIndicator />
     );
   }
 
